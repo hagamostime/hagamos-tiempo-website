@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Hagamos Tiempo: conversaciones honestas sobre la vida, las relaciones y todo eso que todavía estamos aprendiendo.">
+  <meta name="theme-color" content="#123f36">
+  <title>Hagamos Tiempo | Podcast</title>
+  <style>
+    :root {
+      --green: #123f36;
+      --green-soft: #2d5d50;
+      --ivory: #f6eee3;
+      --paper: #fffaf3;
+      --pink: #efb9b5;
+      --peach: #ee9b72;
+      --orange: #d45b12;
+      --ink: #193b33;
+      --muted: #6c756f;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    .shell { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--orange);
+      font-size: .77rem;
+      font-weight: 750;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, .brand {
+      margin-top: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      line-height: 1.03;
+    }
+    h1 { margin-bottom: 24px; font-size: clamp(3.9rem, 9vw, 7.8rem); letter-spacing: -.055em; }
+    h2 { margin-bottom: 22px; font-size: clamp(2.45rem, 5vw, 4.7rem); letter-spacing: -.04em; }
+    h3 { margin-bottom: 10px; font-size: 1.65rem; }
+    p { margin: 0 0 22px; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(18,63,54,.10);
+      background: rgba(255,250,243,.9);
+      backdrop-filter: blur(15px);
+    }
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand { font-size: 1.4rem; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a { font-size: .91rem; font-weight: 650; text-decoration: none; }
+    .nav-links a:hover { color: var(--orange); }
+
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 21px;
+      border: 1px solid var(--green);
+      border-radius: 999px;
+      background: var(--green);
+      color: var(--ivory);
+      font-weight: 720;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); background: var(--green-soft); }
+    .button.secondary { background: transparent; color: var(--green); }
+    .button.secondary:hover { background: rgba(18,63,54,.06); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 72px 0 88px;
+      background:
+        radial-gradient(circle at 0 0, rgba(239,185,181,.42), transparent 31%),
+        var(--ivory);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.04fr .96fr; align-items: center; gap: clamp(42px, 7vw, 96px); }
+    .hero-copy .lead { max-width: 600px; font-size: clamp(1.12rem, 1.8vw, 1.4rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .hero-photo { position: relative; padding: 0 0 32px 34px; }
+    .hero-photo::before {
+      content: "";
+      position: absolute;
+      inset: 34px 26px 0 0;
+      border-radius: 48% 48% 44% 44%;
+      background: var(--pink);
+      transform: rotate(3deg);
+    }
+    .hero-photo img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-height: 690px;
+      border-radius: 220px 220px 32px 32px;
+      object-fit: cover;
+      box-shadow: 0 30px 60px rgba(18,63,54,.14);
+    }
+    .scribble { display: block; width: 120px; height: 7px; margin-top: 24px; border-radius: 50%; background: var(--orange); transform: rotate(-3deg); }
+
+    section { padding: 110px 0; }
+    .intro { background: var(--green); color: var(--ivory); }
+    .intro-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: clamp(42px, 8vw, 110px); }
+    .intro img { width: 100%; border-radius: 28px; box-shadow: 20px 20px 0 var(--peach); }
+    .intro p { max-width: 670px; color: rgba(246,238,227,.86); font-size: 1.08rem; }
+
+    .section-head { max-width: 760px; margin-bottom: 48px; }
+    .episode-grid, .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      position: relative;
+      min-height: 310px;
+      padding: 30px;
+      border: 1px solid rgba(18,63,54,.12);
+      border-radius: 22px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .card-number { color: var(--orange); font-family: Georgia, serif; font-size: 3rem; line-height: 1; }
+    .card p { color: var(--muted); }
+    .tag { display: inline-block; margin-bottom: 42px; color: var(--green); font-size: .76rem; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    .episode-grid .card:nth-child(2) { background: var(--pink); }
+    .episode-grid .card:nth-child(3) { background: var(--ivory); }
+
+    .hosts { background: #f3d8d3; }
+    .hosts-grid { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: clamp(42px, 8vw, 100px); }
+    .hosts-image { position: relative; }
+    .hosts-image img { border-radius: 28px; }
+    .hosts-image::after { content: ""; position: absolute; inset: 20px -20px -20px 20px; z-index: -1; border: 2px solid var(--orange); border-radius: 28px; }
+    .host-names { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 30px; }
+    .host-names p { color: #52635d; font-size: .95rem; }
+
+    .blog-card { min-height: 360px; display: flex; flex-direction: column; }
+    .blog-card:nth-child(1) { background: var(--ivory); }
+    .blog-card:nth-child(2) { background: #fff; }
+    .blog-card:nth-child(3) { background: var(--green); color: var(--ivory); }
+    .blog-card:nth-child(3) p { color: rgba(246,238,227,.72); }
+    .read-link { margin-top: auto; font-weight: 750; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+
+    .newsletter { background: var(--ivory); }
+    .newsletter-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      align-items: center;
+      gap: clamp(42px, 7vw, 92px);
+    }
+    .newsletter-copy { max-width: 520px; }
+    .newsletter-copy p:not(.eyebrow) { color: #52635d; font-size: 1.05rem; }
+    .newsletter-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+    .newsletter-note::before { content: "✓"; color: var(--orange); font-weight: 800; }
+    .newsletter-frame-wrap {
+      padding: 18px;
+      border: 1px solid rgba(18,63,54,.12);
+      border-radius: 28px;
+      background: #fff;
+      box-shadow: 0 28px 60px rgba(18,63,54,.12);
+    }
+    .newsletter-frame {
+      display: block;
+      width: 100%;
+      height: 680px;
+      border: 0;
+      border-radius: 18px;
+      background: #fff;
+    }
+
+    .link-hub { padding-top: 30px; }
+    .link-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      padding: 56px;
+      border-radius: 30px;
+      background: var(--green);
+      color: var(--ivory);
+    }
+    .link-box p { color: rgba(246,238,227,.78); }
+    .social-list { display: grid; gap: 12px; }
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 58px;
+      padding: 14px 20px;
+      border: 1px solid rgba(246,238,227,.35);
+      border-radius: 14px;
+      color: var(--ivory);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .social-link:hover { background: rgba(246,238,227,.1); }
+    .soon { opacity: .52; }
+
+    footer { padding: 50px 0; }
+    .footer-row { display: flex; justify-content: space-between; gap: 24px; color: #64716c; font-size: .88rem; }
+    .photo-credit { text-underline-offset: 4px; }
+    .photo-credit:hover { color: var(--orange); }
+
+    @media (max-width: 860px) {
+      .nav-links a:not(.button) { display: none; }
+      .hero-grid, .intro-grid, .hosts-grid, .newsletter-grid, .link-box { grid-template-columns: 1fr; }
+      .hero-copy { order: 1; }
+      .hero-photo { order: 2; max-width: 590px; }
+      .episode-grid, .blog-grid { grid-template-columns: 1fr; }
+      .card { min-height: 260px; }
+      section { padding: 84px 0; }
+      .newsletter-copy { max-width: 680px; }
+    }
+    @media (max-width: 520px) {
+      .shell { width: min(100% - 24px, 1160px); }
+      .hero { padding-top: 50px; }
+      h1 { font-size: 3.6rem; }
+      .hero-photo { padding-left: 14px; }
+      .link-box { padding: 32px 22px; }
+      .newsletter-frame-wrap { padding: 8px; border-radius: 20px; }
+      .newsletter-frame { height: 710px; border-radius: 14px; }
+      .host-names { grid-template-columns: 1fr; }
+      .footer-row { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Navegación principal">
+      <a class="brand" href="index.html#inicio">Hagamos Tiempo</a>
+      <div class="nav-links">
+        <a href="index.html#podcast">El podcast</a>
+        <a href="index.html#episodios">Episodios</a>
+        <a href="index.html#blog">Blog</a>
+        <a class="button" href="index.html#newsletter">Únete</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-grid shell">
+        <div class="hero-copy">
+          <p class="eyebrow">Podcast en español · Muy pronto</p>
+          <h1>Hagamos<br>Tiempo</h1>
+          <p class="lead">Conversaciones sin respuestas perfectas. Una pausa con sentido para hablar de la vida, las relaciones y todo eso que todavía estamos aprendiendo.</p>
+          <span class="scribble" aria-hidden="true"></span>
+          <div class="hero-actions">
+            <a class="button" href="index.html#podcast">Conoce el podcast</a>
+            <a class="button secondary" href="https://www.instagram.com/hagamos_tiempo/" target="_blank" rel="noopener">Síguenos en Instagram ↗</a>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <img src="assets/hero.JPG" alt="Leslie y Lina riendo juntas durante la sesión de Hagamos Tiempo">
+        </div>
+      </div>
+    </section>
+
+    <section class="intro" id="podcast">
+      <div class="intro-grid shell">
+        <img src="assets/hosts.JPG" alt="Leslie y Lina sentadas frente a sus micrófonos">
+        <div>
+          <p class="eyebrow">Detrás del micrófono</p>
+          <h2>Dos amigas.<br>Muchas preguntas.</h2>
+          <p>Hagamos Tiempo nace de esas conversaciones que empiezan con una pregunta sencilla y terminan llevándonos a lugares inesperados. Aquí hablamos sin filtro, con humor y con la imperfección que hace que todo sea más real.</p>
+          <p>No venimos a dar lecciones. Venimos a conversar, cuestionarnos, reírnos y crear una comunidad en la que podamos sentirnos acompañadas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="episodios">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Primera temporada</p>
+          <h2>Conversaciones que ya estamos preparando</h2>
+        </div>
+        <div class="episode-grid">
+          <article class="card">
+            <div class="card-number">01</div>
+            <span class="tag">Presentación</span>
+            <h3>Las relaciones que nos construyen</h3>
+            <p>Las personas, historias y decisiones que nos han traído hasta aquí.</p>
+          </article>
+          <article class="card">
+            <div class="card-number">02</div>
+            <span class="tag">Vida y expectativas</span>
+            <h3>¿Ama de casa mantenida o trabajadora?</h3>
+            <p>Una conversación sin bandos sobre trabajo, cuidado, dinero y libertad.</p>
+          </article>
+          <article class="card">
+            <div class="card-number">03</div>
+            <span class="tag">Emociones</span>
+            <h3>¿Por qué nos fastidian las personas?</h3>
+            <p>Lo que los demás despiertan en nosotras —y lo que eso puede enseñarnos.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="hosts">
+      <div class="hosts-grid shell">
+        <div class="hosts-image">
+          <img src="assets/laughing.JPG" alt="Leslie y Lina compartiendo una risa">
+        </div>
+        <div>
+          <p class="eyebrow">Somos Leslie y Lina</p>
+          <h2>Una amistad convertida en conversación.</h2>
+          <p>Después de más de seis años de amistad, viajes, entrenamientos, emprendimientos y conversaciones interminables, decidimos abrir un espacio para compartir lo que normalmente hablamos entre nosotras.</p>
+          <div class="host-names">
+            <div>
+              <h3>Leslie</h3>
+              <p>Curiosa, reflexiva y siempre lista para llevar una pregunta un poco más lejos.</p>
+            </div>
+            <div>
+              <h3>Lina</h3>
+              <p>Energía, lealtad y una capacidad admirable para convertir sus sueños en planes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="blog">
+      <div class="shell">
+        <div class="section-head">
+          <p class="eyebrow">Para leer con calma</p>
+          <h2>Notas de Hagamos Tiempo</h2>
+          <p>Ideas y preguntas que continúan después de apagar los micrófonos.</p>
+        </div>
+        <div class="blog-grid">
+          <article class="card blog-card">
+            <span class="tag">Relaciones</span>
+            <h3>Las relaciones que nos construyen</h3>
+            <p>No todas las personas se quedan, pero muchas dejan algo que transforma la forma en que vivimos.</p>
+            <a class="read-link" href="relaciones-que-nos-construyen.html">Leer artículo →</a>
+          </article>
+          <article class="card blog-card">
+            <span class="tag">Mujer y trabajo</span>
+            <h3>¿Por qué seguimos eligiendo bandos?</h3>
+            <p>Cuando las decisiones de otras mujeres se convierten en un espejo de nuestras propias expectativas.</p>
+            <span class="read-link">Artículo próximamente</span>
+          </article>
+          <article class="card blog-card">
+            <span class="tag">Vida real</span>
+            <h3>Una pausa también puede ser progreso</h3>
+            <p>No todo lo valioso tiene que sentirse productivo. A veces parar es la forma más honesta de continuar.</p>
+            <span class="read-link">Artículo próximamente</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter" id="newsletter">
+      <div class="newsletter-grid shell">
+        <div class="newsletter-copy">
+          <p class="eyebrow">Sé parte desde el comienzo</p>
+          <h2>Hagamos tiempo para conversar.</h2>
+          <p>Recibe nuevos episodios, artículos y conversaciones directamente en tu correo. Sin ruido, sin respuestas perfectas y con mucho por compartir.</p>
+          <p class="newsletter-note">Puedes cancelar tu suscripción en cualquier momento.</p>
+        </div>
+        <div class="newsletter-frame-wrap">
+          <iframe
+            class="newsletter-frame"
+            title="Suscripción al newsletter de Hagamos Tiempo"
+            src="https://6fd54817.sibforms.com/v2/serve/MUIFAGU_x48sDAET6DZlDtwxwlrFBuXeKF2p2uMAtQ0hGif_Ylm3JUjX4jJRzvCsxE5egfNLmhD4sUue6PxeMfOIoCzJV_mtogNV293hduus2_fX8C9_Irfik3HeCuioFnL5oeco7VK7X9ynBAP6OH17SpT5MRQI0mzmKpb-UHeXLY_gF-rkf7BVyR1oT6sBg0NGtiQDezAxI8k5TQ=="
+            loading="lazy"
+            scrolling="no"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="link-hub" id="enlaces">
+      <div class="shell link-box">
+        <div>
+          <p class="eyebrow">Únete desde el comienzo</p>
+          <h2>Hagamos tiempo para hablar.</h2>
+          <p>Estamos construyendo esta comunidad antes del lanzamiento. Síguenos y cuéntanos qué conversación te gustaría escuchar.</p>
+        </div>
+        <div class="social-list">
+          <a class="social-link" href="https://www.instagram.com/hagamos_tiempo/" target="_blank" rel="noopener"><span>Instagram · @hagamos_tiempo</span><span>↗</span></a>
+          <a class="social-link" href="https://www.tiktok.com/@hagamos_tiempo" target="_blank" rel="noopener"><span>TikTok · @hagamos_tiempo</span><span>↗</span></a>
+          <a class="social-link" href="mailto:hagamostime@gmail.com?subject=Comentario%20para%20Hagamos%20Tiempo"><span>Comentarios · Email</span><span>↗</span></a>
+          <span class="social-link soon"><span>YouTube</span><span>Próximamente</span></span>
+          <span class="social-link soon"><span>Escucha el podcast</span><span>Próximamente</span></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-row shell">
+      <span>© <span id="year"></span> Hagamos Tiempo.</span>
+      <span>Conversaciones sin respuestas perfectas.</span>
+      <a class="photo-credit" href="https://www.instagram.com/housecatstudio_fabian/" target="_blank" rel="noopener">Fotografía: Fabian Artunduaga · @housecatstudio_fabian ↗</a>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
